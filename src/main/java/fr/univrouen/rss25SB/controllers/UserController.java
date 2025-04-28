@@ -1,7 +1,7 @@
 package fr.univrouen.rss25SB.controllers;
 
 
-import fr.univrouen.rss25SB.Entity.User;
+import fr.univrouen.rss25SB.Entity.AppUser;
 import fr.univrouen.rss25SB.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/users")
-    public List<User> getAllUsers() {
+    public List<AppUser> getAllUsers() {
         return userRepository.findAll();
     }
 }

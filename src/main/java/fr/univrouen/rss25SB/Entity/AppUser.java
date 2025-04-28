@@ -6,22 +6,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class User {
+public class AppUser { // Changement de nom de User à AppUser
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
 
-    // Constructeurs
-    public User() {}
+    public AppUser() {}
 
-    public User(String name, String email) {
+    public AppUser(String name, String email) {
         this.name = name;
         this.email = email;
     }
 
-    // Getters et setters
     public Long getId() {
         return id;
     }
