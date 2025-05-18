@@ -1,6 +1,5 @@
 package fr.univrouen.rss25SB.controllers;
 
-
 import fr.univrouen.rss25SB.Entity.AppUser;
 import fr.univrouen.rss25SB.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

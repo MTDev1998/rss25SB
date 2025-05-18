@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RSS25SB - Upload Article</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+<!-- Navigation Bar -->
+<nav class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold">RSS25SB</a>
+        <div class="space-x-4">
+            <a href="/" class="hover:underline">Home</a>
+            <a href="/rss25SB/resume/html" class="hover:underline">Articles</a>
+            <a href="/upload" class="hover:underline">Upload Article</a>
+            <a href="/help" class="hover:underline">Help</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mx-auto mt-8 p-4 bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Upload New Article</h1>
+    <p class="text-gray-600 mb-4">Upload an XML file containing the article details. The file must conform to the RSS25SB schema.</p>
+
+    <div class="mb-4">
+        <input type="file" id="xmlFile" accept=".xml" class="block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4 file:rounded file:border-0
+                file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700
+                hover:file:bg-blue-100"/>
+    </div>
+    <button onclick="uploadArticle()" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Upload</button>
+
+    <div id="uploadStatus" class="mt-4 text-gray-700"></div>
+
+    <p class="mt-4">
+        <a href="/" class="text-blue-600 hover:underline">Back to Home</a>
+    </p>
+</div>
+
+<!-- JavaScript for Upload Functionality -->
+<script>
+    function uploadArticle() {
+        const fileInput = document.getElementById('xmlFile');
+        const statusDiv = document.getElementById('uploadStatus');
+
+        if (!fileInput.files.length) {
+            statusDiv.innerHTML = '<span class="text-red-600">Please select an XML file to upload.</span>';
+            return;
+        }
+
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+            const xmlContent = event.target.result;
+
+            // Optional: Client-side validation can be added here using a library like libxmljs
+            // For simplicity, we'll rely on server-side validation
+
+            fetch('/rss25SB/insert', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/xml',
+                    'Accept': 'application/xml'
+                },
+                body: xmlContent
+            })
+                .then(response => response.text())
+                .then(data => {
+                    // Parse XML response
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(data, 'application/xml');
+                    const status = xmlDoc.getElementsByTagName('status')[0].textContent;
+                    if (status === 'INSERTED') {
+                        const id = xmlDoc.getElementsByTagName('id')[0].textContent;
+                        statusDiv.innerHTML = `<span class="text-green-600">Article with GUID ${id} uploaded successfully!</span>`;
+                    } else {
+                        const description = xmlDoc.getElementsByTagName('description')[0]?.textContent || 'Unknown error';
+                        statusDiv.innerHTML = `<span class="text-red-600">Failed to upload article: ${description}</span>`;
+                    }
+                })
+                .catch(error => {
+                    statusDiv.innerHTML = `<span class="text-red-600">Error uploading article: ${error.message}</span>`;
+                });
+        };
+
+        reader.onerror = function() {
+            statusDiv.innerHTML = '<span class="text-red-600">Error reading the file.</span>';
+        };
+
+        reader.readAsText(file);
+    }
+</script>
+</body>
+</html>

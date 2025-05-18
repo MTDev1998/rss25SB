@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RSS25SB - Help</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+<!-- Navigation Bar -->
+<nav class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold">RSS25SB</a>
+        <div class="space-x-4">
+            <a href="/" class="hover:underline">Home</a>
+            <a href="/rss25SB/resume/html" class="hover:underline">Articles</a>
+            <a href="/upload" class="hover:underline">Upload Article</a>
+            <a href="/help" class="hover:underline">Help</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mx-auto mt-8 p-4 bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Help Page - RSS25SB Operations</h1>
+    <ul class="list-disc pl-6 space-y-2 text-gray-700">
+        <li><strong>GET /</strong>: Displays the home page (HTML).</li>
+        <li><strong>GET /help</strong>: Displays this help page (HTML).</li>
+        <li><strong>GET /rss25SB/resume/xml</strong>: Lists all articles in a summarized format (XML).</li>
+        <li><strong>GET /rss25SB/resume/html</strong>: Lists all articles in a summarized format (HTML).</li>
+        <li><strong>GET /rss25SB/resume/xml/{id}</strong>: Retrieves detailed information about an article by its GUID (XML).</li>
+        <li><strong>GET /rss25SB/html/{id}</strong>: Retrieves detailed information about an article by its GUID (HTML).</li>
+        <li><strong>POST /rss25SB/insert</strong>: Adds a new article to the feed (XML input, XML output).</li>
+        <li><strong>DELETE /rss25SB/delete/{id}</strong>: Deletes an article by its GUID (XML output).</li>
+    </ul>
+    <p class="mt-4">
+        <a href="/" class="text-blue-600 hover:underline">Back to Home</a>
+    </p>
+</div>
+</body>
+</html>

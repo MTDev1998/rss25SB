@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RSS25SB - Error</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+<!-- Navigation Bar -->
+<nav class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold">RSS25SB</a>
+        <div class="space-x-4">
+            <a href="/" class="hover:underline">Home</a>
+            <a href="/rss25SB/resume/html" class="hover:underline">Articles</a>
+            <a href="/upload" class="hover:underline">Upload Article</a>
+            <a href="/help" class="hover:underline">Help</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mx-auto mt-8 p-4 bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold text-red-600 mb-4">Error</h1>
+    <p class="text-gray-600 mb-4" th:text="${error ?: 'An unexpected error occurred.'}"></p>
+    <p class="mt-4">
+        <a href="/rss25SB/resume/html" class="text-blue-600 hover:underline">Back to Articles</a>
+    </p>
+</div>
+</body>
+</html>

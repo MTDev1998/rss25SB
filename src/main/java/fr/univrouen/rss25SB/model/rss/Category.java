@@ -6,17 +6,15 @@ import jakarta.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Category {
 
-    @XmlAttribute
+    @XmlElement
     private String term;
 
-    // Constructors
     public Category() {}
 
     public Category(String term) {
         this.term = term;
     }
 
-    // Getters and Setters
     public String getTerm() { return term; }
     public void setTerm(String term) { this.term = term; }
 }

@@ -32,7 +32,6 @@ public class Item {
     @XmlElement(name = "author")
     private List<Author> authors = new ArrayList<>();
 
-    // Constructors
     public Item() {}
 
     public Item(String guid, String title, List<Category> categories, ZonedDateTime published, Image image, Content content, List<Author> authors) {
@@ -45,7 +44,6 @@ public class Item {
         this.authors = authors != null ? authors : new ArrayList<>();
     }
 
-    // Getters and Setters
     public String getGuid() { return guid; }
     public void setGuid(String guid) { this.guid = guid; }
 

@@ -15,7 +15,6 @@ public class Author {
     @XmlElement(required = false)
     private String uri;
 
-    // Constructors
     public Author() {}
 
     public Author(String name, String email, String uri) {
@@ -24,7 +23,6 @@ public class Author {
         this.uri = uri;
     }
 
-    // Getters and Setters
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 

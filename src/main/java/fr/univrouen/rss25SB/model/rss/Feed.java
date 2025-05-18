@@ -33,7 +33,6 @@ public class Feed {
     @XmlAttribute
     private String version = "25";
 
-    // Constructors
     public Feed() {}
 
     public Feed(String title, ZonedDateTime pubDate, String copyright, String lang, List<Link> links, List<Item> items) {
@@ -45,7 +44,6 @@ public class Feed {
         this.items = items != null ? items : new ArrayList<>();
     }
 
-    // Getters and Setters
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
 

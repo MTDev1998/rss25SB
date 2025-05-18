@@ -15,7 +15,6 @@ public class Link {
     @XmlAttribute
     private String href;
 
-    // Constructors
     public Link() {}
 
     public Link(String rel, String type, String href) {
@@ -24,7 +23,6 @@ public class Link {
         this.href = href;
     }
 
-    // Getters and Setters
     public String getRel() { return rel; }
     public void setRel(String rel) { this.rel = rel; }
 

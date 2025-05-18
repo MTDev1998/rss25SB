@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RSS25SB - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+<!-- Navigation Bar -->
+<nav class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold">RSS25SB</a>
+        <div class="space-x-4">
+            <a href="/" class="hover:underline">Home</a>
+            <a href="/rss25SB/resume/html" class="hover:underline">Articles</a>
+            <a href="/upload" class="hover:underline">Upload Article</a>
+            <a href="/help" class="hover:underline">Help</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mx-auto mt-8 p-4 bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">RSS25SB Project</h1>
+    <p class="text-gray-600 mb-2">Version: 1.0</p>
+    <p class="text-gray-600 mb-2">Developer par: Tarek Moussaoui et Belkessa Amine</p>
+    <p class="text-gray-600 mb-4">Université de Rouen</p>
+    <img src="data:image/png;base64,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"
+         alt="Université de Rouen Logo"
+         class="w-48 h-auto">
+</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RSS25SB - Articles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+<!-- Navigation Bar -->
+<nav class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold">RSS25SB</a>
+        <div class="space-x-4">
+            <a href="/" class="hover:underline">Home</a>
+            <a href="/rss25SB/resume/html" class="hover:underline">Articles</a>
+            <a href="/upload" class="hover:underline">Upload Article</a>
+            <a href="/help" class="hover:underline">Help</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mx-auto mt-8 p-4 bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">RSS25SB Articles</h1>
+    <table class="min-w-full bg-white border border-gray-200">
+        <thead>
+        <tr class="bg-gray-200 text-gray-600 text-left">
+            <th class="py-2 px-4 border-b">GUID</th>
+            <th class="py-2 px-4 border-b">Title</th>
+            <th class="py-2 px-4 border-b">Published</th>
+            <th class="py-2 px-4 border-b">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}" class="hover:bg-gray-50">
+            <td class="py-2 px-4 border-b" th:text="${item.guid}"></td>
+            <td class="py-2 px-4 border-b" th:text="${item.title}"></td>
+            <td class="py-2 px-4 border-b" th:text="${item.published}"></td>
+            <td class="py-2 px-4 border-b">
+                <a th:href="@{/rss25SB/html/{id}(id=${item.guid})}" th:text="'View Details for ' + ${item.guid}" class="text-blue-600 hover:underline mr-2" onclick="console.log('Navigating to: /rss25SB/html/' + ${item.guid})">View Details</a>
+                <button th:attr="data-guid=${item.guid}" onclick="deleteArticle(this)" class="text-red-600 hover:underline">Delete</button>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(items)}">
+            <td colspan="4" class="py-2 px-4 border-b text-center text-gray-500">No articles available.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="mt-4">
+        <a href="/" class="text-blue-600 hover:underline">Back to Home</a>
+    </p>
+</div>
+
+<!-- JavaScript for Delete Functionality -->
+<script>
+    function deleteArticle(button) {
+        const guid = button.getAttribute('data-guid');
+        console.log('Attempting to delete article with GUID:', guid);
+        if (confirm('Are you sure you want to delete the article with GUID: ' + guid + '?')) {
+            fetch('/rss25SB/delete/' + guid, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/xml'
+                }
+            })
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    return response.text();
+                })
+                .then(data => {
+                    console.log('Response data:', data);
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(data, 'application/xml');
+                    const status = xmlDoc.getElementsByTagName('status')[0].textContent;
+                    if (status === 'DELETED') {
+                        alert('Article deleted successfully!');
+                        window.location.reload();
+                    } else {
+                        const description = xmlDoc.getElementsByTagName('description')[0]?.textContent || 'Unknown error';
+                        alert('Failed to delete article: ' + description);
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    alert('Error deleting article: ' + error.message);
+                });
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RSS25SB - Article Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+<!-- Navigation Bar -->
+<nav class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold">RSS25SB</a>
+        <div class="space-x-4">
+            <a href="/" class="hover:underline">Home</a>
+            <a href="/rss25SB/resume/html" class="hover:underline">Articles</a>
+            <a href="/upload" class="hover:underline">Upload Article</a>
+            <a href="/help" class="hover:underline">Help</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mx-auto mt-8 p-4 bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Article Details</h1>
+
+    <!-- Debug Information -->
+    <div th:if="${item == null}">
+        <p class="text-red-600">Error: No article data available.</p>
+    </div>
+
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold text-gray-700">GUID</h2>
+        <p class="text-gray-600" th:text="${item?.guid} ?: 'N/A'"></p>
+    </div>
+
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold text-gray-700">Title</h2>
+        <p class="text-gray-600" th:text="${item?.title} ?: 'N/A'"></p>
+    </div>
+
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold text-gray-700">Published</h2>
+        <p class="text-gray-600" th:text="${item?.published} ?: 'N/A'"></p>
+    </div>
+
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold text-gray-700">Categories</h2>
+        <ul class="list-disc pl-6 space-y-1 text-gray-600">
+            <li th:each="category : ${item?.categories}" th:text="${category}"></li>
+            <li th:if="${#lists.isEmpty(item?.categories)}">No categories available.</li>
+        </ul>
+    </div>
+
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold text-gray-700">Authors</h2>
+        <ul class="list-disc pl-6 space-y-1 text-gray-600">
+            <li th:each="author : ${item?.authors}" th:text="${author.name} ?: 'N/A'"></li>
+            <li th:if="${#lists.isEmpty(item?.authors)}">No authors available.</li>
+        </ul>
+    </div>
+
+    <div class="mb-6" th:if="${item?.image != null}">
+        <h2 class="text-xl font-semibold text-gray-700">Image</h2>
+        <p class="text-gray-600"><strong>Type:</strong> <span th:text="${item?.image.type} ?: 'N/A'"></span></p>
+        <p class="text-gray-600"><strong>URL:</strong> <a th:href="${item?.image.href}" th:text="${item?.image.href} ?: 'N/A'" class="text-blue-600 hover:underline"></a></p>
+        <p class="text-gray-600"><strong>Alt Text:</strong> <span th:text="${item?.image.alt} ?: 'N/A'"></span></p>
+        <p class="text-gray-600"><strong>Length:</strong> <span th:text="${item?.image.length} ?: 'N/A'"></span></p>
+    </div>
+
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold text-gray-700">Content</h2>
+        <p class="text-gray-600"><strong>Type:</strong> <span th:text="${item?.content.type} ?: 'N/A'"></span></p>
+        <p class="text-gray-600"><strong>Source:</strong> <a th:href="${item?.content.src}" th:text="${item?.content.src} ?: 'N/A'" class="text-blue-600 hover:underline"></a></p>
+        <p class="text-gray-600"><strong>Content:</strong> <span th:text="${item?.content.value} ?: 'N/A'"></span></p>
+    </div>
+
+    <div class="mt-4">
+        <a th:href="@{/rss25SB/resume/xml/{id}(id=${item?.guid})}" class="text-blue-600 hover:underline mr-4">View XML Version</a>
+        <a href="/rss25SB/resume/html" class="text-blue-600 hover:underline">Back to Articles</a>
+    </div>
+</div>
+
+<!-- Debug Script -->
+<script>
+    console.log('Article data:', [[${item}]]);
+</script>
+</body>
+</html>

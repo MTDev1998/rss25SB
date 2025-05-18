@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://univ.fr/rss25"
+           xmlns="http://univ.fr/rss25"
+           elementFormDefault="qualified">
+
+    <!-- Custom type for dateTime with timezone -->
+    <xs:simpleType name="dateTimeTZ">
+        <xs:restriction base="xs:dateTime">
+            <xs:pattern value=".+Z"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Named type for title with maxLength constraint -->
+    <xs:simpleType name="titleType">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="128"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Root element: feed -->
+    <xs:element name="feed">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title" type="titleType"/>
+                <xs:element name="pubDate" type="dateTimeTZ"/>
+                <xs:element name="copyright" type="xs:string"/>
+                <xs:element name="link" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:attribute name="rel" type="xs:string" use="required"/>
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                        <xs:attribute name="href" type="xs:anyURI" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="item" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="guid" type="xs:string"/>
+                            <xs:element name="title" type="titleType"/>
+                            <xs:element name="category" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="term" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="published" type="dateTimeTZ"/>
+                            <xs:element name="image" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:attribute name="type" type="xs:string" use="required"/>
+                                    <xs:attribute name="href" type="xs:anyURI" use="required"/>
+                                    <xs:attribute name="alt" type="xs:string" use="required"/>
+                                    <xs:attribute name="length" type="xs:integer" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="content">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute name="type" type="xs:string" use="required"/>
+                                            <xs:attribute name="src" type="xs:anyURI" use="required"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="author" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="name" type="xs:string"/>
+                                        <xs:element name="email" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="uri" type="xs:anyURI" minOccurs="0"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="lang" type="xs:string" use="required"/>
+            <xs:attribute name="version" type="xs:string" use="required" fixed="25"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

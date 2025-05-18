@@ -18,7 +18,6 @@ public class Image {
     @XmlAttribute
     private Integer length;
 
-    // Constructors
     public Image() {}
 
     public Image(String type, String href, String alt, Integer length) {
@@ -28,7 +27,6 @@ public class Image {
         this.length = length;
     }
 
-    // Getters and Setters
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
 
