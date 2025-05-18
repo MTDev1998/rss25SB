@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://univ.fr/rss25" lang="fr" version="25">
+    <title>Extended Feed</title>
+    <pubDate>2025-05-10T10:00:00Z</pubDate>
+    <copyright>© 2025 Tarek</copyright>
+    <link rel="self" type="application/rss+xml" href="http://example.com/rss"/>
+    <link rel="alternate" type="text/html" href="http://example.com/alternate"/>
+    <item>
+        <guid>98765-43210</guid>
+        <title>Extended Article</title>
+        <category term="Technology"/>
+        <category term="Science"/>
+        <published>2025-05-10T10:00:00Z</published>
+        <image type="JPEG" href="http://example.com/image.jpg" alt="Sample Image" length="1024"/>
+        <content type="html" src="http://example.com/content">Sample HTML content</content>
+        <author>
+            <name>Jane Doe</name>
+            <email>jane.doe@example.com</email>
+            <uri>http://example.com/janedoe</uri>
+        </author>
+        <author>
+            <name>John Smith</name>
+            <email>john.smith@example.com</email>
+        </author>
+    </item>
+</feed>

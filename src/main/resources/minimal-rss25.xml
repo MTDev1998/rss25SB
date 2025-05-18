@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://univ.fr/rss25" lang="fr" version="25">
+    <title>Minimal Feed</title>
+    <pubDate>2025-05-10T10:00:00Z</pubDate>
+    <copyright>© 2025 Tarek</copyright>
+    <link rel="self" type="application/rss+xml" href="http://example.com/rss"/>
+    <item>
+        <guid>12345-67890</guid>
+        <title>Minimal Article</title>
+        <category term="News"/>
+        <published>2025-05-10T10:00:00Z</published>
+        <content type="text" src="http://example.com/content">Sample content</content>
+        <author>
+            <name>John Doe</name>
+        </author>
+    </item>
+</feed>
